@@ -1,0 +1,15 @@
+venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.h5
+*.hdf5
+*.pb
+model/
+checkpoints/
+logs/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
