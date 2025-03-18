@@ -59,7 +59,7 @@ test_generator = test_datagen.flow_from_dataFrame(
     test_df,
     x_col = 'images',
     y_col = 'labels',
-    target_size = (150,150)
+    target_size = (150,150),
     batch_size = 32,
     class_mode = 'binary',
     shuffle = False
@@ -83,3 +83,23 @@ model.add(tf.keras.Droupout(0.3))
 model.add(tf.keras.Dense(128, activation='relu'))
 model.add(tf.keras.Dense(128, activation('sigmoid')))
 
+learning_rate = 0.001
+optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+
+model.compile(optimizer=optimizer, loass='binary_crossentropy', metrics=['accuracy'])
+
+history = model.fit(train_generator, validation_data=test_generator, epochs=40)
+
+plt.plot(history.history['accuracy'], label='Train accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.legend()
+plt.title('Accuracy per epoch')
+plt.show()
+
+plt.plot(history.history['loss'], label='train loss')
+plt.plot(history.history['val_loss'], label='validation loss')
+plt.legend()
+plt.title('loss per epoch')
+plt.show()
+
+model.save('model.h5')
